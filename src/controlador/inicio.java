@@ -29,9 +29,11 @@ public class inicio {
 	
 	static LocalDate fecha = LocalDate.now();
 	public static String ficheroLog = fecha + "ficheroLog.txt";
-
+	public static String ventasFichero = fecha + " ventasAgencia.txt";
+	public static String empleadoVentasFichero = fecha + "ventasEmpleado.txt";
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
 		MenuInterfaz mi = new MenuImplementacion();
 
 		int opcionSeleccionada;
@@ -39,6 +41,9 @@ public class inicio {
 
 		try {
 			
+			Utils.ficheros.CrearFichero();
+			
+			Utils.ficheros.leerFicheros();
 		     FileWriter fileWriter = new FileWriter(ficheroLog, true);
 	         PrintWriter printWriter = new PrintWriter(fileWriter);
 
@@ -50,12 +55,17 @@ public class inicio {
 				switch (opcionSeleccionada) {
 
 				case 0:
+					
+					Utils.ficheros.agregarVentasFichero();
+					Utils.ficheros.agregarProductoFichero();
+					
 					mensajeLog += " - Menú cerrado";
 					System.out.println("Menu cerrado");
 					isCerrado = true;
 					break;
 				case 1:
 					mensajeLog += " - Menú de Empleado";
+					
 					mi.MenuEmpleado();
 					break;
 				case 2:
@@ -76,7 +86,7 @@ public class inicio {
 			
 		} catch (Exception e) {
 			
-			System.out.println("La opcion seleccionada no existe" + e.getMessage());
+			System.out.println("La opcion seleccionada no existe: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}

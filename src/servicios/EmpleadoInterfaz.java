@@ -3,6 +3,7 @@
  */
 package servicios;
 
+import java.io.IOException;
 import java.util.List;
 
 import dtos.productoDto;
@@ -16,12 +17,12 @@ public interface EmpleadoInterfaz {
 	 * logica del calculo
 	 * @param productoLista
 	 */
-	void CalculoTotalDiario();
+	void CalculoTotalDiario() throws IOException;
 
 	/**
 	 * se agrega una venta
 	 * @param productoLista
 	 */
-	void AgregarVenta(List<productoDto> productoLista);
+	void AgregarVenta() throws IOException;
 
 }

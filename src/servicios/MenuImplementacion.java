@@ -20,9 +20,7 @@ public class MenuImplementacion implements MenuInterfaz {
 	Scanner sc = new Scanner(System.in);
 	
 	private void escribirEnFicheroLog(String mensaje) throws IOException {
-        // Abre el archivo en modo de añadir (append)
         try (PrintWriter printWriter = new PrintWriter(new FileWriter(inicio.ficheroLog, true))) {
-            // Escribe el mensaje en el archivo
             printWriter.println(mensaje);
         }
     }
@@ -47,9 +45,10 @@ public class MenuImplementacion implements MenuInterfaz {
 
 		EmpleadoInterfaz ei = new EmpleadoImplementacion();
 		boolean esCerrado = false;
+		int menuEmpleado;
 		
 		do {
-			int menuEmpleado = MenuEmpleadoMostrar();
+			menuEmpleado = MenuEmpleadoMostrar();
             String mensajeLog = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " - Opción seleccionada en Menú Empleado: " + menuEmpleado;
 
 			switch (menuEmpleado) {
@@ -64,7 +63,7 @@ public class MenuImplementacion implements MenuInterfaz {
 				break;
 			case 2:
 				mensajeLog += " - Agregar una venta";
-				ei.AgregarVenta(inicio.productoLista);
+				ei.AgregarVenta();
 				break;
 
 			default:
@@ -97,9 +96,11 @@ public class MenuImplementacion implements MenuInterfaz {
 
 		AgenciaInterfaz ai = new AgenciaImplementacion();
 		boolean esCerrado = false;
+		int menuAgencia;
+		
 		do {
 			
-			int menuAgencia = MenuAgenciaMostrar();
+			menuAgencia = MenuAgenciaMostrar();
             String mensajeLog = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " - Opción seleccionada en Menú Agencia: " + menuAgencia;
 
 			switch (menuAgencia) {
@@ -111,12 +112,12 @@ public class MenuImplementacion implements MenuInterfaz {
 			case 1:
 				
 				mensajeLog += " - Mostrar ventas del dia";
-				ai.MostrarVentasDelDia(inicio.agenciaLista);
+				ai.MostrarVentasDelDia();
 				break;
 			case 2:
 				
 				mensajeLog += " - Nuevo pedido";
-				ai.NuevoPedido(inicio.agenciaLista);
+				ai.NuevoPedido();
 				break;
 
 			default:

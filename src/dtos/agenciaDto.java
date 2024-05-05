@@ -3,6 +3,8 @@
  */
 package dtos;
 
+import java.time.LocalDateTime;
+
 /**
  * Datos de la agencia para entrega
  */
@@ -11,33 +13,35 @@ public class agenciaDto {
 	
 	long id;
 	String nombreProducto = "aaaaa";
-	int costeProducto = 000;
-	String fechaEntrega = "dd/MM/yyy hh:mm:ss";
+	double costeProducto = 00.0;
+	LocalDateTime fechaEntrega = LocalDateTime.of(9999, 12, 31,00,00,00);
 	
 
-	/**
-	 * 
-	 */
+
+	
+
+	@Override
+	public String toString() {
+		return "agenciaDto [id=" + id + ", nombreProducto=" + nombreProducto + ", costeProducto=" + costeProducto
+				+ ", fechaEntrega=" + fechaEntrega + "]";
+	}
+	
 	public agenciaDto() {
 		super();
 	}
+	
 	/**
 	 * @param id
 	 * @param nombreProducto
 	 * @param costeProducto
 	 * @param fechaEntrega
 	 */
-	public agenciaDto(long id, String nombreProducto, int costeProducto, String fechaEntrega) {
+	public agenciaDto(long id, String nombreProducto, double costeProducto, LocalDateTime fechaEntrega) {
 		super();
 		this.id = id;
 		this.nombreProducto = nombreProducto;
 		this.costeProducto = costeProducto;
 		this.fechaEntrega = fechaEntrega;
-	}
-	@Override
-	public String toString() {
-		return "agenciaDto [id=" + id + ", nombreProducto=" + nombreProducto + ", costeProducto=" + costeProducto
-				+ ", fechaEntrega=" + fechaEntrega + "]";
 	}
 	/**
 	 * @return the id
@@ -63,12 +67,7 @@ public class agenciaDto {
 	public void setNombreProducto(String nombreProducto) {
 		this.nombreProducto = nombreProducto;
 	}
-	/**
-	 * @return the costeProducto
-	 */
-	public int getCosteProducto() {
-		return costeProducto;
-	}
+
 	/**
 	 * @param costeProducto the costeProducto to set
 	 */
@@ -76,17 +75,31 @@ public class agenciaDto {
 		this.costeProducto = costeProducto;
 	}
 	/**
+	 * @return the costeProducto
+	 */
+	public double getCosteProducto() {
+		return costeProducto;
+	}
+	/**
+	 * @param costeProducto the costeProducto to set
+	 */
+	public void setCosteProducto(double costeProducto) {
+		this.costeProducto = costeProducto;
+	}
+	/**
 	 * @return the fechaEntrega
 	 */
-	public String getFechaEntrega() {
+	public LocalDateTime getFechaEntrega() {
 		return fechaEntrega;
 	}
 	/**
 	 * @param fechaEntrega the fechaEntrega to set
 	 */
-	public void setFechaEntrega(String fechaEntrega) {
+	public void setFechaEntrega(LocalDateTime fechaEntrega) {
 		this.fechaEntrega = fechaEntrega;
 	}
-	
-	
+	/**
+	 * 
+	 */
+
 }

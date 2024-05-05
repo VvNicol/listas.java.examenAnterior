@@ -1,12 +1,13 @@
 package servicios;
 
+import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Scanner;
 
+import controlador.inicio;
 import dtos.agenciaDto;
-import dtos.productoDto;
 
 /**
  * @author csi23-nrojlla 01032024
@@ -16,63 +17,48 @@ public class AgenciaImplementacion implements AgenciaInterfaz {
 	Scanner sc = new Scanner(System.in);
 
 	@Override
-	public void MostrarVentasDelDia(List<agenciaDto> agenciaLista) {
-		
-		if (agenciaLista.size() > 0) {
+	public void MostrarVentasDelDia() throws IOException {
 
-			System.out.println("Ingrese una fecha formato(dd-MM-yyyy)");
-			String Ingresefecha = sc.nextLine();
-			for (agenciaDto producto : agenciaLista) {
+		if (inicio.agenciaLista.size() > 0) {
+			
+	        System.out.println("Ingrese una fecha en formato dd-MM-yyyy:");
+	        String fechaIngresada = sc.next();
+	        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+	        LocalDate fechaBusqueda = LocalDate.parse(fechaIngresada, formato);	        
 
-				if (producto.getFechaEntrega().equals(Ingresefecha)) {
-
-					String fecha = Ingresefecha;
-
-					DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss");
-
-					fecha = fecha.format(Ingresefecha, formato);
-
-					System.out.println("venta: " + producto.getNombreProducto());
-					System.out.println("Euros: " + producto.getCosteProducto());
-					System.out.println("Instante de compra: " + fecha);
-
-				}
-
-			}
-		}
+	        for (agenciaDto producto : inicio.agenciaLista) {
+	        	
+	            LocalDate fechaEntrega = producto.getFechaEntrega().toLocalDate();
+	            
+	            if (fechaEntrega.equals(fechaBusqueda)) {
+	                System.out.println("--------------------------------------------" );
+	                System.out.println("Venta: " + producto.getNombreProducto());
+	                System.out.println("Euros: " + producto.getCosteProducto());
+	                System.out.println("Instante de compra: " + producto.getFechaEntrega().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
+	            }
+	        }
+	    } else {
+	        System.out.println("No hay ventas registradas.");
+	    }
 
 	}
 
 	@Override
-	public void NuevoPedido(List<agenciaDto> agenciaLista) {
+	public void NuevoPedido() throws IOException {
 
-		long id = nuevoID(agenciaLista);
+		long id = Utils.Utils.nuevoIdAgencia();
 
 		System.out.println("Inserte el nombre del producto");
 		String nombre = sc.nextLine();
-		System.out.println("Inserte el nombre del producto");
-		int cantidad = sc.nextInt();
-		sc.next();
-		LocalDate fecha = LocalDate.now();
-		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss");
-		String fechaEntrega = fecha.format(formato);
+		System.out.println("Inserte la cantidad");
+		double cantidad = sc.nextDouble();
+		sc.nextLine();
+		LocalDateTime fecha = LocalDateTime.now();
 
-		agenciaDto nuevoPedido = new agenciaDto(id, nombre, cantidad, fechaEntrega);
-		agenciaLista.add(nuevoPedido);
+		agenciaDto nuevoPedido = new agenciaDto(id, nombre, cantidad, fecha);
+		inicio.agenciaLista.add(nuevoPedido);
+		
 
-	}
-
-	private long nuevoID(List<agenciaDto> agenciaLista) {
-		long nuevoId;
-		int tamanioLista = agenciaLista.size();
-		if (agenciaLista.size() > 0) {
-			nuevoId = 1;
-		} else {
-
-			nuevoId = agenciaLista.get(tamanioLista - 1).getId() + 1;
-		}
-
-		return nuevoId;
 	}
 
 }

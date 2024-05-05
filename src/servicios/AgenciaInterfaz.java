@@ -1,5 +1,6 @@
 package servicios;
 
+import java.io.IOException;
 import java.util.List;
 
 import dtos.agenciaDto;
@@ -13,11 +14,11 @@ public interface AgenciaInterfaz {
 	 * muestras las ventas del dia
 	 * @param agenciaLista
 	 */
-	void MostrarVentasDelDia(List<agenciaDto> agenciaLista);
+	void MostrarVentasDelDia() throws IOException;
 	/**
 	 * un nuevo pedido
 	 * @param agenciaLista
 	 */
-	void NuevoPedido(List<agenciaDto> agenciaLista);
+	void NuevoPedido() throws IOException;
 
 }
